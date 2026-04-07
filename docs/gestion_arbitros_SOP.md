@@ -37,6 +37,7 @@ Centralizar la gestión del Colegio de Árbitros de Handball de Chaco en una pla
 - **Notificaciones en iOS:** El usuario DEBE "Agregar a inicio" para recibir Push. Informar este paso en el primer inicio de sesión.
 - **Estabilidad:** Solo usar versiones LTS (Long Term Support) de Django y bibliotecas de React.
 - **Entorno Windows:** Se cambió `psycopg2` por `psycopg[binary]` (v3) debido a errores de compilación de wheels en Python 3.13 local.
+- **Ejecución de Scripts:** Al usar la carpeta `scripts/`, se debe inyectar manualmente el `sys.path` del proyecto para evitar errores de `ModuleNotFoundError`.
 - **Seguridad:** JWT para comunicaciones API, asegurando persistencia correcta en PWA.
 
 ---
