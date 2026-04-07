@@ -1,0 +1,11 @@
+# Requerimientos Backend - ArbitrosHB
+django==5.0.4          # Versión estable de Django
+djangorestframework==3.15.1
+djangorestframework-simplejwt==5.3.1
+django-cors-headers==4.3.1
+psycopg[binary]>=3.2.2 # PostgreSQL v3 para mejor soporte en Windows/Python 3.13
+resend==2.2.0           # Envío de correos
+python-dotenv==1.0.1    # Gestión de variables de entorno
+dj-database-url==2.1.0  # Para parsear DATABASE_URL de la VENV
+django-push-notifications==3.0.0 # Para manejo de Web Push
+pywebpush==1.14.0       # Dependencia para Push
