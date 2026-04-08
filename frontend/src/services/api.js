@@ -36,6 +36,11 @@ export const gestionService = {
   updateDesignacion: (id, status) => api.patch(`/designaciones/${id}/`, { status }),
   getDisponibilidades: () => api.get('/disponibilidades/'),
   addDisponibilidad: (data) => api.post('/disponibilidades/', data),
+  getMiPerfil: () => api.get('/mi-perfil/'),
+  updateMiPerfil: (data) => api.patch('/mi-perfil/', data),
+  downloadLiquidaciones: (mes) => api.get(`/liquidaciones/excel/?mes=${mes || ''}`, { responseType: 'blob' }),
+  getVapidKey: () => api.get('/push/vapid-key/'),
+  subscribePush: (subscription) => api.post('/push/subscribe/', subscription),
 };
 
 export default api;

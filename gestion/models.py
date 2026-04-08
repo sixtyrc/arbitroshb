@@ -40,6 +40,7 @@ class Arancel(models.Model):
 class Arbitro(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='perfil_arbitro')
     phone = models.CharField(max_length=20, blank=True, null=True)
+    cbu_alias = models.CharField(max_length=100, blank=True, null=True, verbose_name="CBU / Alias")
     categoria_max = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return self.user.get_full_name()
@@ -90,3 +91,15 @@ class Designacion(models.Model):
         tipo_arancel = 'MESA' if self.rol_asignado == 'MESA' else 'ARBITRO'
         arancel = Arancel.objects.filter(categoria_grupo=self.partido.categoria.grupo, rol=tipo_arancel).first()
         return arancel.monto if arancel else 0
+
+
+class PushSubscription(models.Model):
+    """Almacena las suscripciones Web Push de cada árbitro."""
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='push_subscription')
+    endpoint = models.TextField()
+    p256dh = models.TextField()
+    auth = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Push sub de {self.user.username}"
