@@ -1,4 +1,11 @@
-import React from 'react';
+import os
+
+def fix_footer():
+    path = r"d:\Proyectos\Arbitros\frontend\src\components\Layout.jsx"
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    new_jsx = """import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 const Layout = ({ children }) => {
@@ -49,3 +56,10 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
+"""
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(new_jsx)
+    print("Updated Layout.jsx with persistent global styling footer")
+
+if __name__ == "__main__":
+    fix_footer()
