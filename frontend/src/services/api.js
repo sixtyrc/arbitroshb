@@ -32,13 +32,22 @@ export const authService = {
 
 export const gestionService = {
   getPartidos: () => api.get('/partidos/'),
+  getCategorias: () => api.get('/categorias/'),
+  createPartido: (data) => api.post('/partidos/', data),
+  updatePartido: (id, data) => api.patch(`/partidos/${id}/`, data),
+  deletePartido: (id) => api.delete(`/partidos/${id}/`),
+
   getDesignaciones: () => api.get('/designaciones/'),
   updateDesignacion: (id, status) => api.patch(`/designaciones/${id}/`, { status }),
+  getArbitros: () => api.get('/arbitros/'),
+  createDesignacion: (data) => api.post('/designaciones/', data),
+  deleteDesignacion: (id) => api.delete(`/designaciones/${id}/`),
+
   getDisponibilidades: () => api.get('/disponibilidades/'),
   addDisponibilidad: (data) => api.post('/disponibilidades/', data),
   getMiPerfil: () => api.get('/mi-perfil/'),
   updateMiPerfil: (data) => api.patch('/mi-perfil/', data),
-  downloadLiquidaciones: (mes) => api.get(`/liquidaciones/excel/?mes=${mes || ''}`, { responseType: 'blob' }),
+  downloadLiquidaciones: (params) => api.get('/liquidaciones/excel/', { params, responseType: 'blob' }),
   getVapidKey: () => api.get('/push/vapid-key/'),
   subscribePush: (subscription) => api.post('/push/subscribe/', subscription),
 };

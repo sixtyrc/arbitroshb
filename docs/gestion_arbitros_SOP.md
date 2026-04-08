@@ -24,8 +24,10 @@ Crear una PWA moderna enfocada en el Colegio de Árbitros de Handball de Chaco p
 *   **(2026-04-08 18:55)** - **Liquidaciones Excel**: Export automático con filtro por mes disponible en `/api/liquidaciones/excel/`.
 *   **(2026-04-08 18:56)** - **Envío del Push**: Señales en `signals.py` configuradas usando `pywebpush` para mandar alerta en tiempo real al asignar una designación.
 
+*   **(2026-04-08 19:22)** - **Administrador Full React (Fase 2)**: Reconstrucción total de los crudos base en React. Creadas `/admin` (Dashboard), `/admin/partidos` (CRUD de juegos), `/admin/designaciones` (asignaciones con cruce de disponibilidad en vivo), y `/admin/liquidaciones`.
+
 ### 2. Tareas Pendientes 🛠️
-*   **Administrador Full React:** Refactorizar el actual `/admin` de Django a una vista Premium en React (Fase 2).
+*   **Optimizaciones y Mantenimiento:** Estabilización de flujos y refactorización a futuro (Fase 3).
 
 ---
 

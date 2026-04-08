@@ -4,9 +4,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import HttpResponse
 from django.conf import settings
-from .models import CustomUser, Arbitro, Partido, Disponibilidad, Designacion, PushSubscription
+from .models import CustomUser, Arbitro, Partido, Disponibilidad, Designacion, PushSubscription, Categoria
 from .serializers import (
-    UserSerializer, ArbitroSerializer, ArbitroProfileUpdateSerializer,
+    UserSerializer, ArbitroSerializer, ArbitroProfileUpdateSerializer, CategoriaSerializer,
     PartidoSerializer, DisponibilidadSerializer, DesignacionSerializer
 )
 import openpyxl
@@ -28,6 +28,12 @@ class ArbitroViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']:
             return [permissions.IsAuthenticated()]
         return [permissions.IsAdminUser()]
+
+
+class CategoriaViewSet(viewsets.ModelViewSet):
+    queryset = Categoria.objects.all()
+    serializer_class = CategoriaSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 class PartidoViewSet(viewsets.ModelViewSet):
     queryset = Partido.objects.all()
@@ -90,8 +96,11 @@ class LiquidacionesExcelView(APIView):
     permission_classes = [permissions.IsAdminUser]
 
     def get(self, request):
-        # Obtener parámetros de filtro opcionales
-        mes = request.query_params.get('mes')    # formato: YYYY-MM
+        # Filtros Dinámicos
+        mes = request.query_params.get('mes')
+        partido_id = request.query_params.get('partido_id')
+        fecha_inicio = request.query_params.get('fecha_inicio')
+        fecha_fin = request.query_params.get('fecha_fin')
         aceptadas_only = request.query_params.get('aceptadas', 'true').lower() == 'true'
 
         designaciones = Designacion.objects.select_related(
@@ -100,7 +109,26 @@ class LiquidacionesExcelView(APIView):
 
         if aceptadas_only:
             designaciones = designaciones.filter(status='ACCEPTED')
-        if mes:
+        
+        if partido_id:
+            designaciones = designaciones.filter(partido_id=partido_id)
+        
+        if fecha_inicio:
+            try:
+                designaciones = designaciones.filter(partido__date_time__gte=fecha_inicio)
+            except Exception:
+                pass
+        
+        if fecha_fin:
+            try:
+                # Agregamos tiempo a fecha_fin si es solo YYYY-MM-DD para que tome final del dia
+                if len(fecha_fin) == 10:
+                    fecha_fin += " 23:59:59"
+                designaciones = designaciones.filter(partido__date_time__lte=fecha_fin)
+            except Exception:
+                pass
+
+        if mes and not (fecha_inicio or fecha_fin):
             try:
                 year, month = mes.split('-')
                 designaciones = designaciones.filter(

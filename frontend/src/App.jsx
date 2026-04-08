@@ -4,6 +4,11 @@ import Layout from './components/Layout';
 import Login from './views/Login';
 import Dashboard from './views/Dashboard';
 import Disponibilidad from './views/Disponibilidad';
+import Perfil from './views/Perfil';
+import AdminDashboard from './views/admin/AdminDashboard';
+import AdminPartidos from './views/admin/AdminPartidos';
+import AdminDesignaciones from './views/admin/AdminDesignaciones';
+import AdminLiquidaciones from './views/admin/AdminLiquidaciones';
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('access_token');
@@ -15,6 +20,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/disponibilidad" element={<Disponibilidad />} />
+          <Route path="/perfil" element={<Perfil />} />
+          
+          {/* Vistas de Administrador */}
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/partidos" element={<AdminPartidos />} />
+          <Route path="/admin/designaciones" element={<AdminDesignaciones />} />
+          <Route path="/admin/liquidaciones" element={<AdminLiquidaciones />} />
+          
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
