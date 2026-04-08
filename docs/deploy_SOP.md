@@ -176,6 +176,45 @@ Para no tener que dejar la consola negra de Caddy abierta 24/7.
 
 ---
 
+## 7. Flujo de Git en Producción (Despliegues)
+
+Dado que usas las ramas `Dev` para desarrollo y `test` para pruebas/producción:
+
+1. **Cuando vayas a desplegar una actualización al servidor:**
+   Asegúrate de estar posicionado en la carpeta de producción en tu VPS:
+   ```powershell
+   cd C:\Proyectos\Arbitros
+   ```
+
+2. **Traer la última versión de la rama de producción (`test`)**:
+   ```powershell
+   # Asegurarse de estar en la rama test
+   git checkout test
+   # Traer los últimos cambios
+   git pull origin test
+   ```
+
+3. **Reconstruir la app y reiniciar servicios** (ejecutar siempre después de un pull):
+   ```powershell
+   # Backend: Actualizar dependencias y migrar BD por si hubo cambios
+   .\venv\Scripts\Activate.ps1
+   pip install -r requirements.txt
+   python manage.py migrate
+   python manage.py collectstatic --noinput
+   
+   # Frontend: Reconstruir React
+   cd frontend
+   npm install
+   npm run build
+   cd ..
+   
+   # Reiniciar el servicio backend en Windows
+   nssm restart ArbitrosBackend
+   ```
+*(Nota: Caddy detectará la nueva carpeta de `dist` y la servirá automáticamente).*
+
+---
+
 ## 🎉 LISTO!
 Tu plataforma está online.
 
@@ -183,3 +222,4 @@ Tu plataforma está online.
 1. **No andan las Push Notifications**: Es muy probable que no tengas `HTTPS` oficial o estás intentando desde una red sin cifrado. La API de Push de los navegadores **exige HTTPS absoluto**. Caddy te soluciona esto, debés chequear que tengas candado de seguridad, y chequear en `.env` que `VAPID_PUBLIC_KEY` sea idéntico en BD.
 2. **"No API call found" / 404 en el Frontend**: Asegurate que en el `Caddyfile` agregaste la regla de `try_files` para que index.html atrape cualquier ruteo manual. Y asegurate que la regla de proxy no borre sin querer nada antes de llamar a tu Django.
 3. **Se me reinició el servidor Windows y no arranca**: Entra a "Servicios" de Windows (Services.msc) y buscá *ArbitrosBackend* y *CaddyServer*. Asegúrate que ambos tengan el Status de "Execution" y Startup "Automatic".
+
