@@ -17,13 +17,25 @@ const AdminDashboard = () => {
                     <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>🏆 Partidos</h3>
                     <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Crear y editar calendario</p>
                 </div>
+                <div className="glass-card" onClick={() => navigate('/admin/usuarios')} style={{ cursor: 'pointer', textAlign: 'center' }}>
+                    <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>👥 Plantel</h3>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Cuentas y Claves</p>
+                </div>
                 <div className="glass-card" onClick={() => navigate('/admin/designaciones')} style={{ cursor: 'pointer', textAlign: 'center' }}>
                     <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>哨 Designaciones</h3>
                     <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Asignar árbitros y mesas</p>
                 </div>
+                <div className="glass-card" onClick={() => navigate('/admin/usuarios')} style={{ cursor: 'pointer', textAlign: 'center' }}>
+                    <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>👥 Plantel</h3>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Cuentas y Claves</p>
+                </div>
                 <div className="glass-card" onClick={() => navigate('/admin/liquidaciones')} style={{ cursor: 'pointer', textAlign: 'center' }}>
                     <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>💰 Liquidaciones</h3>
                     <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Exportar excel de pagos</p>
+                </div>
+                <div className="glass-card" onClick={() => navigate('/admin/usuarios')} style={{ cursor: 'pointer', textAlign: 'center' }}>
+                    <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>👥 Plantel</h3>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Cuentas y Claves</p>
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@ import AdminDashboard from './views/admin/AdminDashboard';
 import AdminPartidos from './views/admin/AdminPartidos';
 import AdminDesignaciones from './views/admin/AdminDesignaciones';
 import AdminLiquidaciones from './views/admin/AdminLiquidaciones';
+import AdminUsuarios from './views/admin/AdminUsuarios';
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('access_token');
@@ -25,6 +26,7 @@ function App() {
           {/* Vistas de Administrador */}
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/partidos" element={<AdminPartidos />} />
+          <Route path="/admin/usuarios" element={<AdminUsuarios />} />
           <Route path="/admin/designaciones" element={<AdminDesignaciones />} />
           <Route path="/admin/liquidaciones" element={<AdminLiquidaciones />} />
           

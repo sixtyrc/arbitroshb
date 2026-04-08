@@ -40,6 +40,10 @@ export const gestionService = {
   getDesignaciones: () => api.get('/designaciones/'),
   updateDesignacion: (id, status) => api.patch(`/designaciones/${id}/`, { status }),
   getArbitros: () => api.get('/arbitros/'),
+  getUsers: () => api.get('/users/'),
+  createUser: (data) => api.post('/users/', data),
+  updateUser: (id, data) => api.patch(`/users/${id}/`, data),
+
   createDesignacion: (data) => api.post('/designaciones/', data),
   deleteDesignacion: (id) => api.delete(`/designaciones/${id}/`),
 
